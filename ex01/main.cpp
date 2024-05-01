@@ -1,18 +1,17 @@
 #include <iostream>
 #include "iter.hpp"
 
-
 void a(int a)
 {
-	std::cout << a << std::endl;
+	std::cout << a << ' ';
 }
 
 void a(char a)
 {
-	std::cout << a << std::endl;
+	std::cout << a << ' ';
 }
 
-template<typename socreative>
+template <typename socreative>
 void foo(socreative s)
 {
 	std::cout << "." << s;
@@ -20,16 +19,16 @@ void foo(socreative s)
 
 int main()
 {
-	//Int array
-	int arra[] = {1, 2, 3, 5};
+	std::cout << "Int array: \n";
+	int arra[] = {2, 4, 6, 8};
 	iter(arra, 4, a);
-	
-	//Char array
-	char arrb[] = {'a', '3', '='};
+
+	std::cout << "\n\n" "Char array: \n";
+	char arrb[] = {'*', '%', '@'};
 	iter(arrb, 3, a);
 
-	//Int array with an instantiated function template 
+	std::cout << "\n\n" "Int array with an instantiated function template: \n";
 	iter(arra, 3, foo<int>);
 
-	return 0;
+	std::cout << std::endl;
 }

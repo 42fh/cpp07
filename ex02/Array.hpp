@@ -3,65 +3,68 @@
 #include <iostream>
 #include <cstdlib>
 
-template<typename t>
+template <typename T>
 class Array
 {
 private:
 	unsigned int numberOfElements;
-	t* arr;
+	T *arr;
+
 public:
 	Array();
 	Array(unsigned int n);
-	Array(Array<t>& a);
-	Array<t>& operator=(Array<t> rhs);
+	Array(Array<T> &a);
+	Array<T> &operator=(Array<T> rhs);
 	~Array();
-	t& operator[](unsigned int n);
-	t operator[](unsigned int n) const;
+	T &operator[](unsigned int n);
+	T operator[](unsigned int n) const;
 
-	unsigned int size();
-	class OutOfBound: public std::exception{};
+	unsigned int size() const;
+	class OutOfBound : public std::exception
+	{
+	};
 };
 
-template<typename t> 
-Array<t>::Array(): numberOfElements(0), arr(NULL)
+template <typename T>
+Array<T>::Array() : numberOfElements(0), arr(NULL)
 {
 }
 
-template<typename t> 
-Array<t>::Array(unsigned int n): numberOfElements(n)
-{	
-	arr = new t[n]();
+template <typename T>
+Array<T>::Array(unsigned int n) : numberOfElements(n)
+{
+	arr = new T[n]();
 }
 
-template<typename t> 
-Array<t>::Array(Array<t>& other): numberOfElements(other.numberOfElements)
+template <typename T>
+Array<T>::Array(Array<T> &other) : numberOfElements(other.numberOfElements)
 {
-	this->arr = new t[numberOfElements]();
+	this->arr = new T[numberOfElements]();
 	for (unsigned int i = 0; i < numberOfElements; i++)
 	{
 		this->arr[i] = other.arr[i];
 	}
 }
 
-template<typename t> 
-Array<t>::~Array()
+template <typename T>
+Array<T>::~Array()
 {
 	delete[] this->arr;
 }
 
-template<typename t> 
-unsigned int Array<t>::size()
+template <typename T>
+unsigned int Array<T>::size() const
 {
 	return numberOfElements;
 }
 
-template<typename t> 
-Array<t>& Array<t>::operator=(Array<t> rhs)
+template <typename T>
+Array<T> &Array<T>::operator=(Array<T> rhs)
 {
 	delete[] this->arr;
 
 	this->numberOfElements = rhs.numberOfElements;
-	this->arr = new t[this->numberOfElements]();
+	this->arr = new T[this->numberOfElements]();
 	for (unsigned int i = 0; i < numberOfElements; i++)
 	{
 		this->arr[i] = rhs.arr[i];
@@ -69,8 +72,8 @@ Array<t>& Array<t>::operator=(Array<t> rhs)
 	return *this;
 }
 
-template<typename t> 
-t& Array<t>::operator[](unsigned int n)
+template <typename T>
+T &Array<T>::operator[](unsigned int n)
 {
 	if (n >= numberOfElements || numberOfElements == 0)
 	{
@@ -79,8 +82,8 @@ t& Array<t>::operator[](unsigned int n)
 	return arr[n];
 }
 
-template<typename t> 
-t Array<t>::operator[](unsigned int n) const
+template <typename T>
+T Array<T>::operator[](unsigned int n) const
 {
 	if (n >= numberOfElements)
 	{
